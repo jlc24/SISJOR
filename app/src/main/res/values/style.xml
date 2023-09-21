@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Definir un tema personalizado para la aplicación -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Personalizar los atributos del tema aquí -->
+    </style>
+
+    <!-- Definir un tema personalizado para los elementos emergentes (pop-ups) -->
+    <style name="PopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Personalizar los atributos del tema de los elementos emergentes aquí -->
+    </style>
+    
+    <style name="EditTextStyle">
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="android:textColor">#000</item>
+    </style>
+    
+    <style name="MultiTextStyle">
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+</resources>

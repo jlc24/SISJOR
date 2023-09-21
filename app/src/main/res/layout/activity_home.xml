@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:background="@drawable/fondo"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewPendiente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_pendiente"
+                        android:shadowColor="#4D251A"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="1"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/pendiente"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/num_solicitud"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/txtNumPendiente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/cero"
+                            android:textSize="18sp"
+                            android:textColor="@color/red"/>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        tools:ignore="RtlHardcoded">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/pendiente"
+                            android:contentDescription="@string/desc_pendiente"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewProcesado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_procesada"
+                        android:shadowColor="#1B361D"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="1"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/procesada"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/num_solicitud"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/txtNumProcesadas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/cero"
+                            android:textSize="18sp"
+                            android:textColor="@color/green"/>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        tools:ignore="RtlHardcoded">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/procesado"
+                            android:contentDescription="@string/desc_procesada"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardListSolicitud"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@drawable/fondo_blanco_round">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/solicitud"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:background="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:padding="5sp"/>
+
+                <ListView
+                    android:id="@+id/listSolicitud"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30sp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBarLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatBtn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:onClick="agregarEstibador"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.982"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/baseline_group_add_24"
+            android:contentDescription="@string/descripcion_add"
+            android:focusable="true" />
+
+
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"/>
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

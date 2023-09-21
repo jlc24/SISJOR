@@ -1,0 +1,56 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_item2"
+            android:title="@string/administrador"
+            android:visible="false">
+
+            <menu>
+                <item
+                    android:id="@+id/submenu_nuevo_usuario"
+                    android:title="Nuevo Usuario"
+                    android:icon="@drawable/baseline_person_add_alt_1_24"/>
+            </menu>
+        </item>
+        <item
+            android:id="@+id/nav_item3"
+            android:title="@string/requerimiento"
+            android:visible="false">
+
+            <menu>
+                <item
+                    android:id="@+id/submenu_diarios"
+                    android:title="Diarios"
+                    android:icon="@drawable/baseline_double_arrow_24"/>
+                <item
+                    android:id="@+id/submenu_procesados"
+                    android:title="Procesados"
+                    android:icon="@drawable/baseline_double_arrow_24"/>
+            </menu>
+        </item>
+        <item
+            android:id="@+id/nav_item4"
+            android:title="@string/reportes"
+            android:visible="false">
+
+            <menu>
+                <item
+                    android:id="@+id/submenu_procesados_reportes"
+                    android:title="Procesados"
+                    android:icon="@drawable/baseline_double_arrow_24"/>
+                <item
+                    android:id="@+id/submenu_requerimiento_semana"
+                    android:title="Requerimiento Semana"
+                    android:icon="@drawable/baseline_double_arrow_24"/>
+                <item
+                    android:id="@+id/submenu_control_mes"
+                    android:title="Control Mes"
+                    android:icon="@drawable/baseline_double_arrow_24"/>
+            </menu>
+        </item>
+        <item
+            android:id="@+id/nav_item5"
+            android:onClick="cerrarSesion"
+            android:title="@string/salir"/>
+    </group>
+</menu>

@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/app_color_primary">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgUserProfile"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:src="@drawable/user_default_foreground_shite"
+            android:contentDescription="@string/desc_user" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtUserId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:hint=""/>
+
+    <TextView
+        android:id="@+id/txtUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/txtUserEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="correo@example.com"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/txtUserTipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Administrador"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/txtUserEmpresa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
+        android:text="PUNTOCOM"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/txtUserRecinto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:hint=""/>
+
+    <TextView
+        android:id="@+id/txtUserRecintoName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recinto"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/txtUserUbicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/txtUserUbicacionName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ubicacion"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/txtCopyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/copyright"
+        android:layout_gravity="bottom"
+        android:padding="8dp"
+        android:textColor="@android:color/darker_gray"/>
+
+</LinearLayout>

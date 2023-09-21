@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">SISJOR</string>
+    <string name="user">Usuario</string>
+    <string name="btnLogin">Iniciar Sesión</string>
+    <string name="desc">Logo de la aplicacion</string>
+    <string name="textDesc">Sistema de Solicitud de Jornales Extra</string>
+    <string name="descripcion_add">Agregar Estibadores Extra</string>
+
+    //menu
+    <string name="administrador">Administrador</string>
+    <string name="requerimiento">Requerimientos</string>
+    <string name="reportes">Reportes</string>
+    <string name="open">Abrir Menu</string>
+    <string name="close">Cerrar Menu</string>
+    <string name="salir">Cerrar Sesión</string>
+    <string name="copyright">Copyright © PUNTOCOM SRL 2023</string>
+    <string name="desc_user">Imagen Usuario</string>
+
+    //home card view
+    <string name="desc_pendiente">Imagen Pendiente</string>
+    <string name="title_pendiente">Pendientes</string>
+    <string name="desc_procesada">Imagen Procesada</string>
+    <string name="title_procesada">Procesadas</string>
+    <string name="num_solicitud">Nº Solicitudes:</string>
+    <string name="cero">0</string>
+
+    //tabla solicitudes
+    <string name="solicitud">Solicitudes Pendientes:</string>
+
+    //agregar
+    <string name="identificacion">IDENTIFICACIÓN</string>
+    <string name="req_recinto">*Recinto:</string>
+    <string name="req_ubicacion">*Ubicación:</string>
+    <string name="req_hoy">*Fecha Hoy:</string>
+    <string name="detalle_solicitud">DETALLE DE LA SOLICITUD</string>
+    <string name="req_almacen">*Almacén/Galpón:</string>
+    <string name="req_fecha">*Fecha:</string>
+    <string name="req_hora">*Hora:</string>
+    <string name="req_cantidad">*Cantidad:</string>
+    <string name="op_observacion">Observación</string>
+    <string name="desc_guardar">Guardar Datos</string>
+    <string name="seleccionar">Seleccionar...</string>
+
+    //detalles
+    <string name="fecha_sol">Fecha Solicitud:</string>
+</resources>
