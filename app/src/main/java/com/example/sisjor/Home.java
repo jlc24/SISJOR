@@ -390,4 +390,13 @@ public class Home extends AppCompatActivity {
 
     }
 
+    public void VerProcesados (View view){
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView txtNombre = headerView.findViewById(R.id.txtUserName);
+        String nombre = txtNombre.getText().toString();
+        showErrorDialog(nombre);
+    }
+
 }
