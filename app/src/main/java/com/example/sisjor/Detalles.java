@@ -40,9 +40,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Detalles extends AppCompatActivity {
@@ -55,9 +58,9 @@ public class Detalles extends AppCompatActivity {
         setContentView(R.layout.activity_detalles);
 
         FloatingActionButton procesar = findViewById(R.id.floatBtnProcesar);
-        Drawable icon1 = ContextCompat.getDrawable(this, R.drawable.baseline_settings_power_24);
-        int nuevoAncho = 64;
-        int nuevoAlto = 64;
+        Drawable icon1 = ContextCompat.getDrawable(this, R.drawable.baseline_check_24);
+        int nuevoAncho = 128;
+        int nuevoAlto = 128;
 
         if (icon1 != null) {
             icon1.setBounds(0, 0, nuevoAncho, nuevoAlto);
@@ -112,11 +115,11 @@ public class Detalles extends AppCompatActivity {
             public void run() {
                 if ("PROCESADO".equals(estado) || "ALBO".equals(NEmpresa)){
                     floatBtnProcesar.setVisibility(View.GONE);
-                    txtUsuario.setText("*Operador:");
+                    txtUsuario.setText("Supervisor:");
                     txtOperador.setVisibility(View.VISIBLE);
                     txtSolicitante.setVisibility(View.GONE);
                 }else if ("PUNTOCOM".equals(NEmpresa)) {
-                    txtUsuario.setText("*Solicitante:");
+                    txtUsuario.setText("Concesonario:");
                     txtOperador.setVisibility(View.GONE);
                     txtSolicitante.setVisibility(View.VISIBLE);
                     floatBtnProcesar.setVisibility(View.VISIBLE);
@@ -197,18 +200,40 @@ public class Detalles extends AppCompatActivity {
                     TextView txtUbicacion = findViewById(R.id.txtUbicacionDetalle);
                     txtUbicacion.setText(jsonResponse.getString("ubicacion"));
 
+                    SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                    SimpleDateFormat formatoDeseado = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
                     TextView txtFechaSolicitud = findViewById(R.id.txtFechaSolicitudDetalle);
-                    txtFechaSolicitud.setText(jsonResponse.getString("fecha_sol"));
-                    TextView txtAlmacen = findViewById(R.id.txtAlmacenDetalle);
-                    txtAlmacen.setText(jsonResponse.getString("almacen"));
+                    String fechaSolicitud = jsonResponse.getString("fecha_sol");
                     TextView txtFecha = findViewById(R.id.txtFechaDetalle);
-                    txtFecha.setText(jsonResponse.getString("fecha_req"));
+                    String fechaReq = jsonResponse.getString("fecha_req");
                     TextView txtHora = findViewById(R.id.txtHoraDetalle);
                     txtHora.setText(jsonResponse.getString("hora_req"));
+                    try {
+                        Date fecha = formatoOriginal.parse(fechaSolicitud);
+                        Date fechaReqFormat = formatoOriginal.parse(fechaReq);
+                        String fechaFormat = formatoDeseado.format(fecha);
+                        txtFechaSolicitud.setText(fechaFormat);
+                        txtFecha.setText(formatoDeseado.format(fechaReqFormat).toString());
+                    } catch (ParseException e) {
+                       e.printStackTrace();
+                    }
+
+
+                    TextView txtAlmacen = findViewById(R.id.txtAlmacenDetalle);
+                    txtAlmacen.setText(jsonResponse.getString("almacen"));
+
                     TextView txtCantidad = findViewById(R.id.txtCantidadDetalle);
                     txtCantidad.setText(jsonResponse.getString("cantidad"));
                     TextView txtObservacion = findViewById(R.id.txtObservacionDetalle);
-                    txtObservacion.setText(jsonResponse.getString("observaciones"));
+                    String observacion = jsonResponse.getString("observaciones");
+
+                    if ("".equals(observacion)){
+                        txtObservacion.setText("NINGUNA");
+                    }else {
+                        txtObservacion.setText(observacion);
+                    }
 
                     FloatingActionButton floatbtnProcesar = findViewById(R.id.floatBtnProcesar);
                     TextView txtEstado = findViewById(R.id.txtEstadoDetalle);

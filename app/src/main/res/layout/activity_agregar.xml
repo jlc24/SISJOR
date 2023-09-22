@@ -33,7 +33,6 @@
                 android:id="@+id/cardView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
                 android:background="@drawable/fondo_blanco"
                 android:layout_margin="16dp">
 
@@ -55,18 +54,19 @@
                             android:text="@string/req_recinto"
                             android:textColor="@color/pendiente"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/txtRecintoName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/EditTextStyle"
                             android:textAlignment="center"
                             android:padding="5sp"
-                            android:layout_marginStart="20dp"
                             android:paddingStart="10sp"
-                            android:textSize="18sp" />
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -93,7 +93,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -109,14 +109,16 @@
 
                         <Spinner
                             android:id="@+id/spinnerUbicacion"
+                            style="@style/EditTextStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/EditTextStyle"
-                            android:layout_marginStart="10sp"
+                            android:layout_marginStart="65sp"
                             android:layout_marginTop="10dp"
-                            android:padding="5sp"
-                            android:popupBackground="@color/black"
-                            android:textColor="@color/black"/>
+                            android:gravity="end"
+                            android:padding="10sp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -130,8 +132,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10sp"
                             android:textSize="18sp"
-                            android:textColor="@color/pendiente"
-                            android:text="*Operador:"
+                            android:textColor="@color/black"
+                            android:text="Operador:"
                             android:visibility="visible"
                             android:textStyle="bold"/>
 
@@ -147,18 +149,18 @@
                             android:id="@+id/txtUserSolicitudName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/EditTextStyle"
-                            android:textAlignment="center"
+                            android:textAlignment="textEnd"
                             android:padding="5sp"
                             android:layout_marginTop="10sp"
                             android:layout_marginStart="10dp"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:text="OPERADOR"
                             android:visibility="visible" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -166,8 +168,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="@string/req_hoy"
-                            android:textColor="@color/pendiente"
+                            android:text="Fecha Registro:"
+                            android:textColor="@color/black"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -178,7 +180,8 @@
                             android:layout_marginStart="30dp"
                             android:layout_marginTop="10dp"
                             android:textSize="20sp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:textAlignment="textEnd"/>
 
                     </LinearLayout>
 
@@ -190,7 +193,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:text="@string/detalle_solicitud"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -211,7 +213,7 @@
                     android:padding="16dp">
 
                     <LinearLayout
-                        android:layout_width="336dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -231,20 +233,23 @@
                             style="@style/MultiTextStyle"
                             android:layout_marginStart="10dp"
                             android:completionThreshold="1"
-                            android:padding="5dp"
+                            android:padding="10dp"
                             android:textColorHint="@color/black"
                             android:textColor="@color/black"
-                            android:hint="@string/seleccionar" />
+                            android:hint="@string/seleccionar"
+                            android:textAlignment="textEnd"
+                            android:clickable="true"
+                            android:focusable="false" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:labelFor="@+id/editFecha"
@@ -255,22 +260,27 @@
 
                         <EditText
                             android:id="@+id/editFecha"
-                            android:layout_width="110dp"
+                            android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:layout_marginStart="5dp"
+                            android:layout_marginStart="95dp"
                             android:layout_marginTop="10dp"
+                            android:paddingEnd="10sp"
                             style="@style/EditTextStyle"
                             android:inputType="date"
                             android:textSize="18sp"
-                            android:textAlignment="center"
+                            android:textAlignment="textEnd"
                             android:focusable="false"
                             android:clickable="true"/>
 
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
                             android:labelFor="@+id/editHora"
                             android:text="@string/req_hora"
                             android:textColor="@color/pendiente"
@@ -279,27 +289,27 @@
 
                         <EditText
                             android:id="@+id/editHora"
-                            android:layout_width="90dp"
+                            android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:layout_marginStart="5dp"
+                            android:layout_marginStart="104dp"
                             android:layout_marginTop="10dp"
                             style="@style/EditTextStyle"
-                            android:padding="5sp"
+                            android:paddingEnd="10sp"
                             android:inputType="time"
                             android:textSize="18sp"
-                            android:textAlignment="center"
+                            android:textAlignment="textEnd"
                             android:focusable="false"
                             android:clickable="true"/>
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:labelFor="@+id/editCantidad"
@@ -310,16 +320,16 @@
 
                         <EditText
                             android:id="@+id/editCantidad"
-                            android:layout_width="100dp"
+                            android:layout_width="match_parent"
                             android:layout_height="48dp"
                             style="@style/EditTextStyle"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="72dp"
                             android:layout_marginTop="10dp"
                             android:inputType="number"
                             android:hint="0"
                             android:textColorHint="@color/black"
                             android:textAlignment="textEnd"
-                            android:paddingEnd="5sp"
+                            android:paddingEnd="10sp"
                             android:textSize="18sp" />
 
                     </LinearLayout>

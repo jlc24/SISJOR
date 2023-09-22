@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -95,6 +97,7 @@ public class Agregar extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBarAgregar);
         spinnerUbicacion = findViewById(R.id.spinnerUbicacion);
+
         //spinnerAlmacen = findViewById(R.id.spinnerAlmacen);
         multiAlmacen = findViewById(R.id.multiAlmacen);
 
@@ -152,8 +155,13 @@ public class Agregar extends AppCompatActivity {
 
                 new EncargadoTask().execute(recintoSeleccionado, ubicacionSeleccionada);
 
-                ConsultarAlmacenesTask consultarAlmacenesTask = new ConsultarAlmacenesTask();
-                consultarAlmacenesTask.execute(ubicacionSeleccionada);
+                //ConsultarAlmacenesTask consultarAlmacenesTask = new ConsultarAlmacenesTask();
+                //consultarAlmacenesTask.execute(ubicacionSeleccionada);
+
+                TextView textView = (TextView) view;
+                if (textView != null) {
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20); // Cambia el tamaño de fuente aquí
+                }
             }
 
             @Override
@@ -162,10 +170,24 @@ public class Agregar extends AppCompatActivity {
             }
         });
 
+        multiAlmacen = findViewById(R.id.multiAlmacen);
         editText = findViewById(R.id.editFecha);
         editHora = findViewById(R.id.editHora);
         calendar = Calendar.getInstance();
 
+        multiAlmacen.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Spinner spinnerUbicacion = findViewById(R.id.spinnerUbicacion);
+                String idUbicacion = spinnerUbicacion.getSelectedItem().toString();
+                int espacioIndex = idUbicacion.indexOf(" ");
+                if (espacioIndex != -1) {
+                    idUbicacion = idUbicacion.substring(0, espacioIndex);
+                }
+
+                new ConsultarAlmacenesTask().execute(idUbicacion);
+            }
+        });
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -300,9 +322,28 @@ public class Agregar extends AppCompatActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String nombreAlmacen = jsonObject.getString("almacen");
-                    almacenesList.add(nombreAlmacen);
+
+                    Almacen almacen = new Almacen(nombreAlmacen);
+                    almacenesList.add(String.valueOf(almacen));
+
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(Agregar.this, android.R.layout.simple_dropdown_item_1line, almacenesList);
+
+                //showListaAlmacenDialog("Lista de Almacen:\n", almacenesList);
+
+                AlmacenListAdapter adapter = new AlmacenListAdapter(Agregar.this, almacenesList);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Agregar.this);
+                builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        String almacen = almacenesList.get(which);
+                        //almacen.setSelected(!almacen.isSelected());
+                        adapter.notifyDataSetChanged();
+                    }
+
+                });
+                builder.setCancelable(false);
+                builder.create().show();
+                /*ArrayAdapter<String> adapter = new ArrayAdapter<>(Agregar.this, android.R.layout.simple_dropdown_item_1line, almacenesList);
                 multiAlmacen.setAdapter(adapter);
 
                 multiAlmacen.setTokenizer(new MultiAutoCompleteTextView.Tokenizer() {
@@ -350,7 +391,7 @@ public class Agregar extends AppCompatActivity {
                             }
                         }
                     }
-                });
+                });*/
             } catch (JSONException e) {
                 e.printStackTrace();
                 showErrorDialog("Error en el formato de respuesta" + e);
@@ -598,4 +639,43 @@ public class Agregar extends AppCompatActivity {
                 });
         builder.create().show();
     }
+
+    private void showListaAlmacenDialog(String message, final List<String> almacenesList){
+        final boolean[] checkedItems = new boolean[almacenesList.size()];
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+                .setMultiChoiceItems(almacenesList.toArray(new CharSequence[almacenesList.size()]), checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int wich, boolean isChecked) {
+                        checkedItems[wich] = isChecked;
+                    }
+                })
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        List<String> elementosSelecionados = new ArrayList<>();
+                        for (int j = 0; j < almacenesList.size(); j++) {
+                            if (checkedItems[j]) {
+                                String almacenSeleccionado = almacenesList.get(j);
+                                elementosSelecionados.add(almacenSeleccionado);
+                            }
+                        }
+
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Realiza el proceso que deseas en el botón "Cancelar"
+                        // Si deseas que el diálogo se cierre aquí, simplemente elimina este comentario
+                    }
+                });
+        builder.setCancelable(false);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 }
