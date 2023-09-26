@@ -13,375 +13,379 @@
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:scrollbarAlwaysDrawHorizontalTrack="true">
+            android:layout_height="match_parent">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Detalle de Solicitud:"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                android:background="@drawable/fondo_blanco"
-                android:layout_margin="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:labelFor="@+id/txtRecinto"
-                            android:text="Recinto: "
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"/>
-
-                        <TextView
-                            android:id="@+id/txtRecintoNameDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:padding="5sp"
-                            android:paddingStart="10sp"
-                            android:text="INTERIOR_SANTA_CRUZ"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/txtUserIdDetalles"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/txtIdSolicitudDetalles"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:labelFor="@+id/txtUbicacion"
-                            android:text="Ubicación:"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtUbicacionDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10sp"
-                            android:textAlignment="textEnd"
-                            android:padding="5sp"
-                            android:text="PAMPA_ISLA"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txtUsuarioDetalle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10sp"
-                            android:textSize="20sp"
-                            android:textColor="@color/black"
-                            android:text="Solicitante:"
-                            android:visibility="visible"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/txtEmpresaDetalle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10sp"
-                            android:layout_marginStart="10dp"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:visibility="gone" />
-                        <TextView
-                            android:id="@+id/txtOperadorDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="textEnd"
-                            android:padding="5sp"
-                            android:layout_marginTop="10sp"
-                            android:layout_marginStart="10dp"
-                            android:textSize="18sp"
-                            android:text="OPERADOR"
-                            android:visibility="gone"
-                            android:textColor="@color/black"/>
-                        <TextView
-                            android:id="@+id/txtSolicitanteDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="textEnd"
-                            android:padding="5sp"
-                            android:layout_marginTop="10sp"
-                            android:layout_marginStart="10dp"
-                            android:textSize="18sp"
-                            android:text="OPERADOR"
-                            android:visibility="gone"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Fecha Registro:"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtFechaSolicitudDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginTop="10sp"
-                            android:padding="5sp"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10sp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:labelFor="@+id/spinnerAlmacen"
-                            android:text="Almacen/Galpón:"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtAlmacenDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10sp"
-                            android:textAlignment="textEnd"
-                            android:padding="5sp"
-                            android:minLines="1"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10sp"
-                            android:labelFor="@+id/editFecha"
-                            android:text="Fecha Solicitud:"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtFechaDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5sp"
-                            android:layout_marginTop="10sp"
-                            android:padding="5sp"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:textAlignment="textEnd"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:labelFor="@+id/editHora"
-                            android:text="Hora Solicitud:"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtHoraDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5sp"
-                            android:layout_marginTop="10sp"
-                            android:padding="5sp"
-                            android:textSize="18sp"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/black"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:labelFor="@+id/editCantidad"
-                            android:text="Cantidad:"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtCantidadDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10sp"
-                            android:layout_marginTop="10sp"
-                            android:textAlignment="textEnd"
-                            android:padding="5sp"
-                            android:textColor="@color/black"
-                            android:textSize="18sp" />
-
-                    </LinearLayout>
-
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Observacion:"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtObservacionDetalle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10sp"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/black"
-                            android:autofillHints=""
-                            android:minLines="1"
-                            android:padding="10sp"
-                            android:textSize="18sp"
-                            android:textAlignment="textEnd"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <ProgressBar
-                    android:id="@+id/progressBarLoad"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                android:background="@color/white"
-                android:layout_margin="16dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:scrollbarAlwaysDrawHorizontalTrack="true">
 
                 <TextView
-                    android:id="@+id/txtEstadoDetalle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Detalle de Solicitud:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    android:background="@drawable/fondo_blanco"
+                    android:layout_margin="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:labelFor="@+id/txtRecinto"
+                                android:text="Recinto: "
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:visibility="gone"/>
+
+                            <TextView
+                                android:id="@+id/txtRecintoNameDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:padding="5sp"
+                                android:paddingStart="10sp"
+                                android:text="INTERIOR_SANTA_CRUZ"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/txtUserIdDetalles"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/txtIdSolicitudDetalles"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:labelFor="@+id/txtUbicacion"
+                                android:text="Ubicación:"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtUbicacionDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginStart="10sp"
+                                android:textAlignment="textEnd"
+                                android:padding="5sp"
+                                android:text="PAMPA_ISLA"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txtUsuarioDetalle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10sp"
+                                android:textSize="20sp"
+                                android:textColor="@color/black"
+                                android:text="Solicitante:"
+                                android:visibility="visible"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:id="@+id/txtEmpresaDetalle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10sp"
+                                android:layout_marginStart="10dp"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"
+                                android:visibility="gone" />
+                            <TextView
+                                android:id="@+id/txtOperadorDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="textEnd"
+                                android:padding="5sp"
+                                android:layout_marginTop="10sp"
+                                android:layout_marginStart="10dp"
+                                android:textSize="18sp"
+                                android:text="OPERADOR"
+                                android:visibility="gone"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:id="@+id/txtSolicitanteDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="textEnd"
+                                android:padding="5sp"
+                                android:layout_marginTop="10sp"
+                                android:layout_marginStart="10dp"
+                                android:textSize="18sp"
+                                android:text="OPERADOR"
+                                android:visibility="gone"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Fecha Registro:"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtFechaSolicitudDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="30dp"
+                                android:layout_marginTop="10sp"
+                                android:padding="5sp"
+                                android:textAlignment="textEnd"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10sp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:labelFor="@+id/spinnerAlmacen"
+                                android:text="Almacen/Galpón:"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtAlmacenDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10sp"
+                                android:textAlignment="textEnd"
+                                android:padding="5sp"
+                                android:minLines="1"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10sp"
+                                android:labelFor="@+id/editFecha"
+                                android:text="Fecha Solicitud:"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtFechaDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5sp"
+                                android:layout_marginTop="10sp"
+                                android:padding="5sp"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"
+                                android:textAlignment="textEnd"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:labelFor="@+id/editHora"
+                                android:text="Hora Solicitud:"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtHoraDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5sp"
+                                android:layout_marginTop="10sp"
+                                android:padding="5sp"
+                                android:textSize="18sp"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:labelFor="@+id/editCantidad"
+                                android:text="Cantidad:"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtCantidadDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10sp"
+                                android:layout_marginTop="10sp"
+                                android:textAlignment="textEnd"
+                                android:padding="5sp"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Observacion:"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtObservacionDetalle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10sp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/black"
+                                android:autofillHints=""
+                                android:minLines="1"
+                                android:padding="10sp"
+                                android:textSize="18sp"
+                                android:textAlignment="textEnd"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBarLoad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
                     android:background="@color/white"
-                    android:padding="5sp"
-                    android:gravity="center"
-                    android:textSize="30sp"
-                    android:textColor="@color/red"
-                    android:textStyle="bold"
-                    android:text="PENDIENTE"/>
+                    android:layout_margin="16dp">
 
-            </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/txtEstadoDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="5sp"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        android:textColor="@color/red"
+                        android:textStyle="bold"
+                        android:text="PENDIENTE"/>
 
+                </androidx.cardview.widget.CardView>
 
+            </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatBtnProcesar"
@@ -401,6 +405,27 @@
             android:contentDescription="@string/desc_guardar"
             android:focusable="true"
             android:visibility="visible"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatBtnCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:onClick="cancelarSolicitud"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.982"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/baseline_clear_24"
+            android:contentDescription="@string/desc_guardar"
+            android:focusable="true"
+            android:visibility="visible"
+            android:backgroundTint="@color/pendiente"/>
+
     </RelativeLayout>
 
 </LinearLayout>

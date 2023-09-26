@@ -1,11 +1,9 @@
 package com.example.sisjor;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -16,16 +14,15 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -61,13 +58,14 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Agregar extends AppCompatActivity {
-
     private ProgressBar progressBar;
     private Spinner spinnerUbicacion;
     private MultiAutoCompleteTextView multiAlmacen;
     private EditText editText, editHora;
     private Calendar calendar;
     private String ip = "https://puntocombolivia.com/SISJOR/";
+    private String[] almacenes;
+    private boolean[] selectedItems;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -86,19 +84,9 @@ public class Agregar extends AppCompatActivity {
         icon1.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         fab.setImageDrawable(icon1);
 
-        CardView cardView1 = findViewById(R.id.cardView1);
-        cardView1.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-        CardView cardView2 = findViewById(R.id.cardView2);
-        cardView2.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-        CardView cardView3 = findViewById(R.id.cardView3);
-        cardView3.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
         progressBar = findViewById(R.id.progressBarAgregar);
         spinnerUbicacion = findViewById(R.id.spinnerUbicacion);
 
-        //spinnerAlmacen = findViewById(R.id.spinnerAlmacen);
         multiAlmacen = findViewById(R.id.multiAlmacen);
 
         Intent intent = getIntent();
@@ -121,7 +109,6 @@ public class Agregar extends AppCompatActivity {
             consultarUbicacionesTask.execute(String.valueOf(recinto), ubicacion);
         }
 
-        //Capturar Fecha actual y mostrar en el TextView
         TextView txtFechaHoy = findViewById(R.id.txtFechaSolicitud);
         Date fechaActual = new Date();
         Date horaActual = new Date();
@@ -140,30 +127,20 @@ public class Agregar extends AppCompatActivity {
         editHora.setText(horaHoy);
 
         TextView txtRecinto = findViewById(R.id.txtRecinto);
-        //SpinnerAlmacen
-
         spinnerUbicacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String ubicacionSeleccionada = (String) parent.getItemAtPosition(position);
-
                 String recintoSeleccionado = txtRecinto.getText().toString();
-
                 showLoadingIndicator();
-
                 multiAlmacen.setText("");
-
                 new EncargadoTask().execute(recintoSeleccionado, ubicacionSeleccionada);
-
-                //ConsultarAlmacenesTask consultarAlmacenesTask = new ConsultarAlmacenesTask();
-                //consultarAlmacenesTask.execute(ubicacionSeleccionada);
-
+                hideLoadingIndicator();
                 TextView textView = (TextView) view;
                 if (textView != null) {
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20); // Cambia el tamaño de fuente aquí
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -212,7 +189,6 @@ public class Agregar extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     private void showLoadingIndicator(){
         progressBar.setVisibility(View.VISIBLE);
@@ -317,81 +293,16 @@ public class Agregar extends AppCompatActivity {
             hideLoadingIndicator();
             try {
                 JSONArray jsonArray = new JSONArray(response);
-                List<String> almacenesList = new ArrayList<>();
+                int length = jsonArray.length();
+                almacenes = new String[length];
 
-                for (int i = 0; i < jsonArray.length(); i++) {
+                //almacenes[0] = "Seleccionar Todos";
+
+                for (int i = 0; i < length; i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String nombreAlmacen = jsonObject.getString("almacen");
-
-                    Almacen almacen = new Almacen(nombreAlmacen);
-                    almacenesList.add(String.valueOf(almacen));
-
+                    almacenes[i] = jsonObject.getString("almacen");
                 }
-
-                //showListaAlmacenDialog("Lista de Almacen:\n", almacenesList);
-
-                AlmacenListAdapter adapter = new AlmacenListAdapter(Agregar.this, almacenesList);
-                AlertDialog.Builder builder = new AlertDialog.Builder(Agregar.this);
-                builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        String almacen = almacenesList.get(which);
-                        //almacen.setSelected(!almacen.isSelected());
-                        adapter.notifyDataSetChanged();
-                    }
-
-                });
-                builder.setCancelable(false);
-                builder.create().show();
-                /*ArrayAdapter<String> adapter = new ArrayAdapter<>(Agregar.this, android.R.layout.simple_dropdown_item_1line, almacenesList);
-                multiAlmacen.setAdapter(adapter);
-
-                multiAlmacen.setTokenizer(new MultiAutoCompleteTextView.Tokenizer() {
-                    @Override
-                    public int findTokenStart(CharSequence text, int cursor) {
-                        int i = cursor;
-                        while (i > 0 && (text.charAt(i - 1) != ',' && text.charAt(i - 1) != ';')) {
-                            i--;
-                        }
-                        while (i < cursor && text.charAt(i) == ' ') {
-                            i++;
-                        }
-                        return i;
-                    }
-
-                    @Override
-                    public int findTokenEnd(CharSequence text, int cursor) {
-                        int i = cursor;
-                        int len = text.length();
-                        while (i < len) {
-                            if (text.charAt(i) == ',' || text.charAt(i) == ';') {
-                                return i;
-                            } else {
-                                i++;
-                            }
-                        }
-                        return len;
-                    }
-
-                    @Override
-                    public CharSequence terminateToken(CharSequence text) {
-                        int i = text.length();
-                        while (i > 0 && text.charAt(i - 1) == ' ') {
-                            i--;
-                        }
-                        if (i > 0 && (text.charAt(i - 1) == ',' || text.charAt(i - 1) == ';')) {
-                            return text;
-                        } else {
-                            if (text instanceof Spanned) {
-                                SpannableString sp = new SpannableString(text + ", ");
-                                TextUtils.copySpansFrom((Spanned) text, 0, text.length(), Object.class, sp, 0);
-                                return sp;
-                            } else {
-                                return text + ", ";
-                            }
-                        }
-                    }
-                });*/
+                showCustomDialog();
             } catch (JSONException e) {
                 e.printStackTrace();
                 showErrorDialog("Error en el formato de respuesta" + e);
@@ -498,7 +409,6 @@ public class Agregar extends AppCompatActivity {
                 },
                 hour, minute, true
         );
-
         timePickerDialog.show();
     }
 
@@ -618,7 +528,6 @@ public class Agregar extends AppCompatActivity {
                     return params;
                 }
             };
-
             queue.add(request);
         }
     }
@@ -640,42 +549,63 @@ public class Agregar extends AppCompatActivity {
         builder.create().show();
     }
 
-    private void showListaAlmacenDialog(String message, final List<String> almacenesList){
-        final boolean[] checkedItems = new boolean[almacenesList.size()];
+    private void showCustomDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_custom, null);
+
+        ListView listAlmacen = dialogView.findViewById(R.id.listAlmacen);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, almacenes);
+        listAlmacen.setAdapter(adapter);
+        listAlmacen.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        selectedItems = new boolean[almacenes.length];
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-                .setMultiChoiceItems(almacenesList.toArray(new CharSequence[almacenesList.size()]), checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int wich, boolean isChecked) {
-                        checkedItems[wich] = isChecked;
+        listAlmacen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    boolean selectAll = !selectedItems[0];
+                    for (int i = 0; i < almacenes.length; i++) {
+                        selectedItems[i] = selectAll;
                     }
-                })
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    adapter.notifyDataSetChanged();
+                } else {
+                    selectedItems[position] = !selectedItems[position];
+                }
+            }
+        });
+        builder.setView(dialogView)
+                .setTitle("Seleccionar Almacenes:")
+                .setCancelable(false)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        List<String> elementosSelecionados = new ArrayList<>();
-                        for (int j = 0; j < almacenesList.size(); j++) {
-                            if (checkedItems[j]) {
-                                String almacenSeleccionado = almacenesList.get(j);
-                                elementosSelecionados.add(almacenSeleccionado);
+                    public void onClick(DialogInterface dialog, int which) {
+                        StringBuilder selectedItemsText =  new StringBuilder();
+                        for (int i = 0; i < almacenes.length; i++) {
+                            if (selectedItems[i]) {
+                                if (selectedItemsText.length() > 0) {
+                                    selectedItemsText.append(", ");
+                                }
+                                selectedItemsText.append(almacenes[i]);
                             }
                         }
-
+                        multiAlmacen.setText(selectedItemsText.toString());
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // Realiza el proceso que deseas en el botón "Cancelar"
-                        // Si deseas que el diálogo se cierre aquí, simplemente elimina este comentario
-                    }
-                });
-        builder.setCancelable(false);
+                .setNegativeButton("Cancelar", null);
+        final AlertDialog dialog = builder.create();
+        listAlmacen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long ad) {
+                selectedItems[position] = !selectedItems[position];
+            }
+        });
+        dialog.show();
+    }
 
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+    private void  onAlmacenesDataReceived(String[] almacenes){
+        this.almacenes = almacenes;
+        showCustomDialog();
     }
 
 }

@@ -1,14 +1,7 @@
 package com.example.sisjor;
 
-//import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-//import android.app.ProgressDialog;
-//import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,29 +9,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-//import com.android.volley.AuthFailureError;
-//import com.android.volley.Request;
-//import com.android.volley.RequestQueue;
-//import com.android.volley.Response;
-//import com.android.volley.VolleyError;
-//import com.android.volley.toolbox.StringRequest;
-//import com.android.volley.toolbox.Volley;
-
-//import java.io.BufferedInputStream;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
-//import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
-//import java.util.HashMap;
-//import java.util.Map;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -48,7 +27,6 @@ public class Login extends AppCompatActivity {
     private EditText t_user, t_pass;
     //private String str_user, str_pass;
     private ProgressBar progressBar;
-    private CardView cardView;
     private String ip = "https://puntocombolivia.com/SISJOR/";
 
     @Override
@@ -59,9 +37,6 @@ public class Login extends AppCompatActivity {
         t_user = findViewById(R.id.editUser);
         t_pass = findViewById(R.id.editPassword);
         progressBar = findViewById(R.id.progressBar);
-
-        cardView = findViewById(R.id.cardviewLogin);
-        cardView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
     }
 
     private String md5Hash(String input){
@@ -190,7 +165,7 @@ public class Login extends AppCompatActivity {
                     intent.putExtra("ubicacion", userUbicacion);
                     intent.putExtra("ubicacionName", userUbicacionName);
                     startActivity(intent);
-                    finish();
+                    //finish();
                 }else{
                     showErrorDialog(message);
                 }
@@ -200,5 +175,4 @@ public class Login extends AppCompatActivity {
             }
         }
     }
-
 }

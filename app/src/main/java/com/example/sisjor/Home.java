@@ -4,14 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -19,29 +17,17 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-//import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,8 +42,6 @@ public class Home extends AppCompatActivity {
     private ProgressBar progressBar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private String ip = "https://puntocombolivia.com/SISJOR/";
-    private TextView txtNumPendiente, txtNumProcesado;
-    private CardView cardViewPendiente, cardViewProcesado, cardViewListSolicitud;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,15 +59,6 @@ public class Home extends AppCompatActivity {
         fab.setImageDrawable(icon1);
 
         progressBar = findViewById(R.id.progressBarLoading);
-
-        cardViewPendiente = findViewById(R.id.cardViewPendiente);
-        cardViewPendiente.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-        cardViewProcesado = findViewById(R.id.cardViewProcesado);
-        cardViewProcesado.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-        cardViewListSolicitud = findViewById(R.id.cardListSolicitud);
-        cardViewListSolicitud.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
 
         NavigationView navigationView = findViewById(R.id.navigationView);
         View headerView = navigationView.getHeaderView(0);
@@ -149,19 +124,21 @@ public class Home extends AppCompatActivity {
 
         new ListSolicitudTask(this, userid, userEmpresa).execute(userid, userEmpresa);
         hideLoadingIndicator();
-
     }
-
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     public void cerrarSesion(MenuItem item){
-        finishAffinity();
+        Intent intent = new Intent(this, Login.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+        //finishAffinity();
     }
 
     private void showLoadingIndicator(){
@@ -196,24 +173,19 @@ public class Home extends AppCompatActivity {
             String userId = params[0];
             String estado = params[1];
             String empresa = params[2];
-
             String server = ip + "apk/contEstado.php";
             apiUrl = server + "?userid=" + userId + "&estado=" + estado + "&empresa=" + empresa;
-
             StringBuilder result = new StringBuilder();
-
             try {
                 URL url = new URL(apiUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line;
                 while ((line = reader.readLine()) != null){
                     result.append(line);
                 }
                 reader.close();
-
                 connection.disconnect();
             }catch (IOException e) {
                 e.printStackTrace();
@@ -224,7 +196,6 @@ public class Home extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String response) {
-
             try {
                 JSONObject jsonResponse = new JSONObject(response);
                 String estado = jsonResponse.getString("estado");
@@ -236,7 +207,6 @@ public class Home extends AppCompatActivity {
                 } else if ("PROCESADO".equals(status)) {
                     txtNumProcesado.setText(estado);
                 }
-
             }catch (JSONException e){
                 e.printStackTrace();
                 //showErrorDialog(apiUrl);
@@ -271,7 +241,6 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == CODIGO_AGREGAR) {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null && data.getBooleanExtra("actualizarEstado", false)) {
@@ -292,8 +261,6 @@ public class Home extends AppCompatActivity {
                             hideLoadingIndicator();
                         }
                     },500);
-
-
                 }
             }
         }
@@ -301,10 +268,8 @@ public class Home extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     public class ListSolicitudTask extends AsyncTask<String, Void, String> {
-
         private final WeakReference<Home> activityReference;
         private String userId, apiUrl, empresa;
-
         ListView listSolicitudes = findViewById(R.id.listSolicitud);
         ListSolicitudTask(Home activity, String userId, String empresa) {
             activityReference = new WeakReference<>(activity);
@@ -316,7 +281,6 @@ public class Home extends AppCompatActivity {
         protected String doInBackground(String... params) {
             String userId = params[0];
             String empresa = params[1];
-
             String server = ip + "apk/tablaSolicitud.php";
             apiUrl = server + "?user=" + userId + "&empresa=" + empresa;
 
@@ -379,15 +343,11 @@ public class Home extends AppCompatActivity {
                         listSolicitud.setAdapter(adapter);
                     });
                 }
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
                 showErrorDialog("No se pudo conectar al servidor. " + e.toString());
             }
-
         }
-
     }
 
     public void VerProcesados (View view){
@@ -396,7 +356,6 @@ public class Home extends AppCompatActivity {
 
         TextView txtNombre = headerView.findViewById(R.id.txtUserName);
         String nombre = txtNombre.getText().toString();
-        showErrorDialog(nombre);
+        showErrorDialog("Solicitudes Procesados:");
     }
-
 }

@@ -1,9 +1,7 @@
 package com.example.sisjor;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.versionedparcelable.VersionedParcel;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -17,22 +15,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,12 +29,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class Detalles extends AppCompatActivity {
     private String ip = "https://puntocombolivia.com/SISJOR/";
@@ -58,7 +42,9 @@ public class Detalles extends AppCompatActivity {
         setContentView(R.layout.activity_detalles);
 
         FloatingActionButton procesar = findViewById(R.id.floatBtnProcesar);
+        FloatingActionButton cancelar = findViewById(R.id.floatBtnCancelar);
         Drawable icon1 = ContextCompat.getDrawable(this, R.drawable.baseline_check_24);
+        Drawable icon2 = ContextCompat.getDrawable(this, R.drawable.baseline_clear_24);
         int nuevoAncho = 128;
         int nuevoAlto = 128;
 
@@ -68,14 +54,11 @@ public class Detalles extends AppCompatActivity {
         assert icon1 != null;
         icon1.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         procesar.setImageDrawable(icon1);
+        assert icon2 != null;
+        icon2.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        cancelar.setImageDrawable(icon2);
 
         progressBar = findViewById(R.id.progressBarLoad);
-
-        CardView cardView1 = findViewById(R.id.cardView1);
-        cardView1.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-        CardView cardView2 = findViewById(R.id.cardView2);
-        cardView2.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
         showLoadingIndicator();
 
@@ -126,8 +109,6 @@ public class Detalles extends AppCompatActivity {
                 }
             }
         },500);
-
-
     }
 
     @Override
@@ -341,6 +322,30 @@ public class Detalles extends AppCompatActivity {
                         finish();
                     }
                 });
+        builder.create().show();
+    }
+
+    public void cancelarSolicitud(View view) {
+        showCancelDialog("¿Desea cancelar la solicitud?");
+    }
+
+    private void showCancelDialog(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Cancelar:")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("actualizarEstado", true);
+                        setResult(RESULT_OK, resultIntent);
+
+                        finish();
+                    }
+                })
+                .setNegativeButton("NO", null);;
         builder.create().show();
     }
 }
