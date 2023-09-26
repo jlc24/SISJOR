@@ -90,6 +90,7 @@
                     android:textAlignment="center"
                     android:ems="10"
                     android:hint="@string/user"
+                    android:textSize="25sp"
                     android:textColor="@color/black"
                     android:textColorHint="#4E4B4B"
                     android:inputType="textPersonName"
@@ -114,7 +115,8 @@
                     android:autofillHints="password"
                     android:textAlignment="center"
                     android:ems="10"
-                    android:hint="Password"
+                    android:hint="Contraseña"
+                    android:textSize="25sp"
                     android:textColor="@color/black"
                     android:textColorHint="#4E4B4B"
                     android:inputType="textPassword"
@@ -152,5 +154,14 @@
             android:visibility="gone"/>
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="100sp"
+        android:textAlignment="center"
+        android:text="SISJOR V1.0.5"
+        android:textSize="20sp"/>
 
 </LinearLayout>
