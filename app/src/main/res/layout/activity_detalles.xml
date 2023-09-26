@@ -423,7 +423,7 @@
             app:srcCompat="@drawable/baseline_clear_24"
             android:contentDescription="@string/desc_guardar"
             android:focusable="true"
-            android:visibility="visible"
+            android:visibility="gone"
             android:backgroundTint="@color/pendiente"/>
 
     </RelativeLayout>

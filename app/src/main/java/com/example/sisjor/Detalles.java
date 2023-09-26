@@ -88,6 +88,7 @@ public class Detalles extends AppCompatActivity {
         TextView txtSolicitante = findViewById(R.id.txtSolicitanteDetalle);
         TextView txtUsuario = findViewById(R.id.txtUsuarioDetalle);
         @SuppressLint("CutPasteId") FloatingActionButton floatBtnProcesar = findViewById(R.id.floatBtnProcesar);
+        FloatingActionButton floatBtnCancelar = findViewById(R.id.floatBtnCancelar);
         @SuppressLint("CutPasteId") TextView empresa = findViewById(R.id.txtEmpresaDetalle);
         String NEmpresa = empresa.getText().toString();
         TextView txtEstado = findViewById(R.id.txtEstadoDetalle);
@@ -98,6 +99,7 @@ public class Detalles extends AppCompatActivity {
             public void run() {
                 if ("PROCESADO".equals(estado) || "ALBO".equals(NEmpresa)){
                     floatBtnProcesar.setVisibility(View.GONE);
+                    //floatBtnCancelar.setVisibility(View.GONE);
                     txtUsuario.setText("Supervisor:");
                     txtOperador.setVisibility(View.VISIBLE);
                     txtSolicitante.setVisibility(View.GONE);
@@ -106,6 +108,7 @@ public class Detalles extends AppCompatActivity {
                     txtOperador.setVisibility(View.GONE);
                     txtSolicitante.setVisibility(View.VISIBLE);
                     floatBtnProcesar.setVisibility(View.VISIBLE);
+                    //floatBtnCancelar.setVisibility(View.GONE);
                 }
             }
         },500);
@@ -245,7 +248,6 @@ public class Detalles extends AppCompatActivity {
     }
 
     private class procesarSolTask extends AsyncTask<String, Void, String>{
-
         @Override
         protected String doInBackground(String... params) {
             String id = params[0];
@@ -293,7 +295,7 @@ public class Detalles extends AppCompatActivity {
         }
     }
 
-    public void procesarSolicitud(View view) throws ParseException {
+    public void procesarSolicitud(View view) {
         TextView txtIdSolicitud = findViewById(R.id.txtIdSolicitudDetalles);
         String idSolicitud = txtIdSolicitud.getText().toString();
         TextView txtUserId = findViewById(R.id.txtUserIdDetalles);
@@ -338,14 +340,53 @@ public class Detalles extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra("actualizarEstado", true);
-                        setResult(RESULT_OK, resultIntent);
+                        TextView txtIdSolicitud = findViewById(R.id.txtIdSolicitudDetalles);
+                        String idSolicitud = txtIdSolicitud.getText().toString();
+                        TextView txtUserId = findViewById(R.id.txtUserIdDetalles);
+                        String userId = txtUserId.getText().toString();
+                        TextView empresa = findViewById(R.id.txtEmpresaDetalle);
+                        String NEmpresa = empresa.getText().toString();
+                        TextView txtEstado = findViewById(R.id.txtEstadoDetalle);
+                        String estado = txtEstado.getText().toString();
 
-                        finish();
+                        if ("PUNTOCOM".equals(NEmpresa) && "PENDIENTE".equals(estado)){
+                            new cancelarSolicitudTask().execute(idSolicitud, userId);
+                        }
                     }
                 })
-                .setNegativeButton("NO", null);;
+                .setNegativeButton("NO", null);
         builder.create().show();
+    }
+
+    private class cancelarSolicitudTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String id = params[0];
+            String userid = params[1];
+            String url1 = ip + "apk/cancelarSolicitud.php";
+            String apiUrl = url1 + "?id=" + id + "&userId=" + userid;
+            StringBuilder result = new StringBuilder();
+
+            try {
+                URL url = new URL(apiUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                reader.close();
+
+                connection.disconnect();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Error de conexión al servidor";
+            }
+
+            return result.toString();
+        }
     }
 }

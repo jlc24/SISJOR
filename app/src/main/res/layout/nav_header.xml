@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
         android:textAlignment="textEnd"
-        android:text="SISJOR Version 1.0.5"
+        android:text="SISJOR Version 1.0.6"
         android:padding="8dp"
         android:textColor="@android:color/darker_gray"/>
 

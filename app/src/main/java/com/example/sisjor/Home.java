@@ -132,6 +132,10 @@ public class Home extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     public void cerrarSesion(MenuItem item){
         Intent intent = new Intent(this, Login.class);
 
