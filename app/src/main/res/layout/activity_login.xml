@@ -161,7 +161,7 @@
         android:textColor="@color/white"
         android:layout_marginTop="100sp"
         android:textAlignment="center"
-        android:text="SISJOR v1.0.6"
+        android:text="SISJOR v2.0.0"
         android:textSize="20sp"/>
 
 </LinearLayout>

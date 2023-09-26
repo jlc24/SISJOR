@@ -404,7 +404,7 @@
             app:srcCompat="@drawable/baseline_check_24"
             android:contentDescription="@string/desc_guardar"
             android:focusable="true"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatBtnCancelar"

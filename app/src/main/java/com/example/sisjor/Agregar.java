@@ -294,13 +294,13 @@ public class Agregar extends AppCompatActivity {
             try {
                 JSONArray jsonArray = new JSONArray(response);
                 int length = jsonArray.length();
-                almacenes = new String[length];
+                almacenes = new String[length + 1];
 
-                //almacenes[0] = "Seleccionar Todos";
+                almacenes[0] = "TODOS";
 
                 for (int i = 0; i < length; i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    almacenes[i] = jsonObject.getString("almacen");
+                    almacenes[i + 1] = jsonObject.getString("almacen");
                 }
                 showCustomDialog();
             } catch (JSONException e) {
@@ -373,6 +373,7 @@ public class Agregar extends AppCompatActivity {
     }
 
     private void showDatePickerDialog(){
+        Calendar todayCalendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -382,13 +383,20 @@ public class Agregar extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        @SuppressLint("DefaultLocale") String selectedDate = String.format("%02d/%02d/%04d",day, month+1,year);
-                        editText.setText(selectedDate);
+
+                        Calendar selectedCalendar = Calendar.getInstance();
+                        selectedCalendar.set(year, month, day);
+
+                        if (selectedCalendar.compareTo(todayCalendar) >= 0) {
+                            @SuppressLint("DefaultLocale")
+                            String selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
+                            editText.setText(selectedDate);
+                        }
                     }
                 },
                 year, month, day
         );
-
+        datePickerDialog.getDatePicker().setMinDate(todayCalendar.getTimeInMillis());
         datePickerDialog.show();
     }
 
@@ -402,7 +410,7 @@ public class Agregar extends AppCompatActivity {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        @SuppressLint("DefaultLocale") String selectedTime = String.format("%02d:%02d:%02d", hourOfDay, minute, second);
+                        @SuppressLint("DefaultLocale") String selectedTime = String.format("%02d:%02d:%02d", hourOfDay, minute, 0);
 
                         editHora.setText(selectedTime);
                     }
@@ -413,7 +421,21 @@ public class Agregar extends AppCompatActivity {
     }
 
     public void guardarSolicitud(View view) throws ParseException {
+        EditText editCantidad = findViewById(R.id.editCantidad);
+        String cantidad = editCantidad.getText().toString();
 
+        MultiAutoCompleteTextView multiAlmacen = findViewById(R.id.multiAlmacen);
+        String almacen = multiAlmacen.getText().toString();
+        if (almacen.equals("")){
+            Toast.makeText(this, "Agregar almacenes", Toast.LENGTH_SHORT).show();
+        } else if (cantidad.equals("0") || cantidad.equals("")) {
+            Toast.makeText(this,"Cantidad debe ser mayor a 0", Toast.LENGTH_SHORT).show();
+        }else {
+            showGuardarDialog("¿Generar Solicitud?");
+        }
+    }
+
+    private void guardarSolicitudTask() throws ParseException {
         TextView txtUserSolicitud = findViewById(R.id.txtUserId);
         String userSolicitud = txtUserSolicitud.getText().toString();
 
@@ -530,6 +552,25 @@ public class Agregar extends AppCompatActivity {
             };
             queue.add(request);
         }
+    }
+
+    private void showGuardarDialog(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Guardar")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            guardarSolicitudTask();
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                })
+                .setNegativeButton("NO", null);
+        builder.create().show();
     }
 
     private void showSuccessDialog(String message){

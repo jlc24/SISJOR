@@ -99,7 +99,7 @@ public class Detalles extends AppCompatActivity {
             public void run() {
                 if ("PROCESADO".equals(estado) || "ALBO".equals(NEmpresa)){
                     floatBtnProcesar.setVisibility(View.GONE);
-                    //floatBtnCancelar.setVisibility(View.GONE);
+                    floatBtnCancelar.setVisibility(View.VISIBLE);
                     txtUsuario.setText("Supervisor:");
                     txtOperador.setVisibility(View.VISIBLE);
                     txtSolicitante.setVisibility(View.GONE);
@@ -108,7 +108,7 @@ public class Detalles extends AppCompatActivity {
                     txtOperador.setVisibility(View.GONE);
                     txtSolicitante.setVisibility(View.VISIBLE);
                     floatBtnProcesar.setVisibility(View.VISIBLE);
-                    //floatBtnCancelar.setVisibility(View.GONE);
+                    floatBtnCancelar.setVisibility(View.GONE);
                 }
             }
         },500);
@@ -296,18 +296,40 @@ public class Detalles extends AppCompatActivity {
     }
 
     public void procesarSolicitud(View view) {
-        TextView txtIdSolicitud = findViewById(R.id.txtIdSolicitudDetalles);
-        String idSolicitud = txtIdSolicitud.getText().toString();
-        TextView txtUserId = findViewById(R.id.txtUserIdDetalles);
-        String userId = txtUserId.getText().toString();
         TextView empresa = findViewById(R.id.txtEmpresaDetalle);
         String NEmpresa = empresa.getText().toString();
         TextView txtEstado = findViewById(R.id.txtEstadoDetalle);
         String estado = txtEstado.getText().toString();
-
-        if ("PUNTOCOM".equals(NEmpresa) && "PENDIENTE".equals(estado)){
-            new procesarSolTask().execute(idSolicitud, userId);
+        if ("PENDIENTE".equals(estado) && "PUNTOCOM".equals(NEmpresa)) {
+            showProcesarDialog("¿Desea procesar la solicitud?");
         }
+    }
+
+    private void showProcesarDialog(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Procesar")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        TextView txtIdSolicitud = findViewById(R.id.txtIdSolicitudDetalles);
+                        String idSolicitud = txtIdSolicitud.getText().toString();
+                        TextView txtUserId = findViewById(R.id.txtUserIdDetalles);
+                        String userId = txtUserId.getText().toString();
+                        TextView empresa = findViewById(R.id.txtEmpresaDetalle);
+                        String NEmpresa = empresa.getText().toString();
+                        TextView txtEstado = findViewById(R.id.txtEstadoDetalle);
+                        String estado = txtEstado.getText().toString();
+
+                        if ("PUNTOCOM".equals(NEmpresa) && "PENDIENTE".equals(estado)){
+                            new procesarSolTask().execute(idSolicitud, userId);
+                        }
+                    }
+                })
+                .setNegativeButton("NO", null);
+        builder.create().show();
     }
 
     private void showSuccessDialog(String message){
@@ -328,7 +350,14 @@ public class Detalles extends AppCompatActivity {
     }
 
     public void cancelarSolicitud(View view) {
-        showCancelDialog("¿Desea cancelar la solicitud?");
+        TextView empresa = findViewById(R.id.txtEmpresaDetalle);
+        String NEmpresa = empresa.getText().toString();
+        TextView txtEstado = findViewById(R.id.txtEstadoDetalle);
+        String estado = txtEstado.getText().toString();
+        if ("PENDIENTE".equals(estado) && "ALBO".equals(NEmpresa)) {
+            showCancelDialog("¿Desea cancelar la solicitud?");
+        }
+
     }
 
     private void showCancelDialog(String message){
@@ -349,7 +378,7 @@ public class Detalles extends AppCompatActivity {
                         TextView txtEstado = findViewById(R.id.txtEstadoDetalle);
                         String estado = txtEstado.getText().toString();
 
-                        if ("PUNTOCOM".equals(NEmpresa) && "PENDIENTE".equals(estado)){
+                        if ("ALBO".equals(NEmpresa) && "PENDIENTE".equals(estado)){
                             new cancelarSolicitudTask().execute(idSolicitud, userId);
                         }
                     }
@@ -387,6 +416,23 @@ public class Detalles extends AppCompatActivity {
             }
 
             return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            try {
+                JSONObject jsonResponse = new JSONObject(response);
+                String estado = jsonResponse.getString("status");
+                String mensaje = jsonResponse.getString("message");
+                if ("success".equals(estado)){
+                    showSuccessDialog(mensaje);
+                }else {
+                    showErrorDialog(estado);
+                }
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
         }
     }
 }

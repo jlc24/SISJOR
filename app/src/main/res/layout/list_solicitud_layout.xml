@@ -14,7 +14,8 @@
         android:padding="5sp"
         android:text="ID:"
         android:textSize="15sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="200dp"
